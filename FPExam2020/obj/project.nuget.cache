@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "/U/q6T+SAVElme5LwiaRPTjqATBTl2ygQc2YLBBu3pndv1E9d4b6fgU0cCYJT6ACCf6UhwErwrRQReFZu7/AHQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Ahmed Galal\\RiderProjects\\FPExam2020\\FPExam2020\\FPExam2020.fsproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Ahmed Galal\\.nuget\\packages\\fsharp.core\\6.0.3\\fsharp.core.6.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -205,18 +205,59 @@ let fooTail el lst =
 
 (* Question 3.1 *)
 
-type shape = unit (* replace unit with the correct type declaration *)
-type result = unit (* replace unit with the correct type declaration *)
+type shape =
+       |Rock
+       |Paper
+       |Scissors
+type result =
+    |PlayerOneWin
+    |PlayerTwoWin
+    |Draw(* replace unit with the correct type declaration *)
 
-let rps _ = failwith "not implemented"
+let rps s1 s2 =
+    match s1 with
+    |s1 when s1 = s2 -> Draw
+    |s1 when s1 = Rock && s2 = Scissors -> PlayerOneWin
+    |s1 when s1 = Scissors && s2 = Paper -> PlayerOneWin
+    |s1 when s1 = Paper && s2= Rock -> PlayerOneWin
+    |_ -> PlayerTwoWin
 
 (* Question 3.2 *)
 
 type strategy = (shape * shape) list -> shape
 
-let parrot _ = failwith "not implemented"
+let parrot (sh: shape) lst  =
+    match lst with
+    |[] -> sh
+    |_ ->  snd (List.head lst) 
 
-let beatingStrat _ = failwith "not implemented"
+let beatingStrat lst =
+    let opponentMoves = List.fold (fun acc x -> (snd x) :: acc) [] lst
+    let summationOfMoves = List.countBy id opponentMoves
+    let sortedList =List.sortBy (fun (_, y) -> -y) summationOfMoves
+    match sortedList with
+    |[] -> Rock
+    |x :: y :: z :: _ when (snd x) = (snd y) && (snd y) = (snd z) -> Rock
+    |x :: y :: _ when (snd x) = (snd y) ->
+        match ( fst x), (fst y) with
+        |Rock, Scissors -> Rock
+        |Rock, Paper -> Paper
+        |Scissors, Rock -> Rock
+        |Scissors, Paper -> Rock
+        |Paper, Rock -> Paper
+        |Paper, Scissors-> Rock
+    | x :: _->
+        match (fst x) with
+        |Rock -> Paper
+        |Scissors -> Rock
+        |Paper -> Scissors
+
+
+        
+    
+    
+    
+  
 
 let roundRobin _ = failwith "not implemented"
 
@@ -242,10 +283,10 @@ let playTournament _ = failwith "not implemented"
 
 (* Question 4.1 *)
 
-type stack = unit (* replace unit with the correct type declaration *)
+type stack = L of list<int> (* replace unit with the correct type declaration *)
 
 let emptyStack =
-    () (* replace () with the correct value *)
+    L List.empty 
 
 (* Question 4.2 *)
 
@@ -268,8 +309,8 @@ let (>>>=) x y = x >>= (fun _ -> y)
 
 let evalSM (S f) = f emptyStack
 
-let push _ = failwith "not implemented"
-let pop _ = failwith "not implemented"
+let push x (L st) = ret (L (List.insertAt 0 x st))
+let pop (L st) = ret (List.head st) 
 
 (* Question 4.3 *)
 
